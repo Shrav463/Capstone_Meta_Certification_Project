@@ -1,0 +1,83 @@
+/* src/AboutSection.css */
+
+.about-section-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 40px; /* Space between columns */
+    padding: 60px 80px; /* Adjust padding as needed */
+    background-color: #EDEFEE; /* Light grey background from mockup */
+    color: #333333; /* Default text color */
+    align-items: center; /* Vertically align content in the middle */
+}
+
+.about-content {
+    /* Styles for the text content on the left */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between elements */
+}
+
+.about-content h1 {
+    font-size: 3em; /* Larger heading */
+    color: #333333; /* Dark color for main title */
+    margin: 0;
+}
+
+.about-content h2 {
+    font-size: 2em; /* Smaller subheading */
+    color: #495E57; /* Dark green/grey for subheading */
+    margin: 0;
+}
+
+.about-content p {
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: #495E57; /* Darker grey for paragraph text */
+}
+
+.about-image-container {
+    display: flex;
+    justify-content: center; /* Center the image */
+    align-items: center;
+    /* Optional: position the image slightly differently if needed by mockup */
+    position: relative; /* For stacking multiple images later if needed */
+}
+
+.about-image {
+    width: 100%; /* Fill container */
+    max-width: 400px; /* Max size for the image */
+    height: auto;
+    border-radius: 16px; /* Rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow than cards */
+    object-fit: cover; /* Ensure image covers the area without distortion */
+}
+
+/* Responsive adjustments for About Section */
+@media (max-width: 992px) {
+    .about-section-bottom {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        padding: 40px;
+        text-align: center; /* Center text content */
+    }
+    .about-content {
+        align-items: center; /* Center text content */
+    }
+    .about-image-container {
+        margin-top: 30px; /* Space between text and image when stacked */
+    }
+}
+
+@media (max-width: 480px) {
+    .about-section-bottom {
+        padding: 30px 20px;
+    }
+    .about-content h1 {
+        font-size: 2.5em;
+    }
+    .about-content h2 {
+        font-size: 1.8em;
+    }
+    .about-content p {
+        font-size: 1em;
+    }
+}

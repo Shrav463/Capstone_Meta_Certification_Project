@@ -1,0 +1,146 @@
+/* src/Header.css */
+
+header {
+    position: absolute; /* Position the header absolutely over the hero section */
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex; /* Use Flexbox for content distribution */
+    justify-content: flex-start; /* Aligns content to the left side */
+    align-items: center; /* Vertically centers items */
+    padding: 20px 80px; /* Top/bottom padding, left/right padding */
+    color: #F4CE14; /* Default text color for header, though links will override */
+    z-index: 10; /* Ensure header is on top of other content */
+    background-color: transparent; /* Make the header background transparent */
+    gap: 50px; /* Add space between logo and nav */
+}
+
+.header-logo {
+    height: 40px; /* Adjust height of the logo */
+    filter: brightness(1.5) saturate(1.5); /* Optional: make logo brighter if it's dark on dark background */
+}
+
+/* Nav component styles (these would ideally be in Nav.css, but for simplicity here) */
+.main-nav ul {
+    display: flex; /* Make nav items horizontal */
+    list-style: none; /* Remove bullet points */
+    margin: 0;
+    padding: 0;
+    gap: 30px; /* Added a gap between nav items */
+}
+
+.main-nav li {
+    /* No need for margin-left here anymore, as gap on ul handles spacing */
+    margin-left: 0;
+}
+
+.main-nav a {
+    text-decoration: none; /* Remove underline */
+    color: #F4CE14; /* Link color (yellow from branding) */
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+.main-nav a:hover {
+    color: #EE9972; /* Lighter color on hover */
+}
+
+/* New: Styles for the hero section, which will now also be the header's background */
+.hero-section {
+    position: relative; /* Make the hero section the main container */
+    padding: 0; /* Remove padding as the content will be positioned inside */
+    background-color: #495E57; /* Fallback color */
+    height: 500px; /* Set a fixed height for the hero section */
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/public/restaurant_pic.jpg'); /* Corrected image path */
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.6); /* Darken the image to make text readable */
+    z-index: 1;
+}
+
+.hero-content {
+    /* Styles for the text content on the left, now overlaid on the image */
+    position: absolute;
+    top: 50%;
+    left: 80px;
+    transform: translateY(-50%);
+    z-index: 2; /* Ensure content is on top of the image */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between elements */
+    max-width: 50%; /* Limit the width of the content for better readability */
+    text-align: left;
+    color: #fff;
+}
+
+.hero-content h1 {
+    font-size: 3em; /* Larger heading */
+    color: #fff; /* White color for better contrast on the dark background */
+    margin: 0;
+}
+
+.hero-content h2 {
+    font-size: 2em; /* Smaller subheading */
+    color: #fff; /* White color */
+    margin: 0;
+}
+
+.hero-content p {
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: #EDEFEE; /* Light grey for paragraph */
+}
+
+.reserve-button {
+    background-color: #EE9972; /* The pink/red color from your reference image */
+    color: #333333; /* Dark text */
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px; /* Slightly rounded corners */
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    align-self: flex-start; /* Align button to the left */
+}
+
+.reserve-button:hover {
+    background-color: #F4CE14; /* Lighter yellow/orange on hover */
+    color: #495E57; /* Darker text on hover */
+}
+
+
+/* Responsive adjustments for header */
+@media (max-width: 992px) {
+    header {
+        flex-direction: column; /* Stack items vertically */
+        padding: 20px 40px;
+        text-align: center;
+    }
+    .main-nav ul {
+        flex-direction: column; /* Stack nav items vertically */
+        margin-top: 15px;
+    }
+    .main-nav li {
+        margin: 10px 0; /* Adjust spacing for stacked items */
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 15px 20px;
+    }
+    .header-logo {
+        height: 35px;
+    }
+}

@@ -1,0 +1,151 @@
+/* src/SpecialsSection.css */
+
+.specials-section {
+    padding: 60px 80px; /* Padding around the entire section */
+    background-color: #EDEFEE; /* Light grey background from the mockup */
+    text-align: center; /* Center the main heading within the section */
+}
+
+.specials-header {
+    display: flex; /* Use flexbox to arrange the heading and button */
+    justify-content: space-between; /* Puts heading on left, button on right */
+    align-items: center; /* Vertically centers them */
+    margin-bottom: 40px; /* Space between the header part and the product grid */
+}
+
+.specials-header h2 {
+    font-size: 2.5em; /* Large font size for the section title */
+    color: #333333; /* Dark text color */
+    margin: 0; /* Remove default margin */
+}
+
+.online-menu-button {
+    background-color: #F4CE14; /* Yellow background from Little Lemon branding */
+    color: #333333; /* Dark text color */
+    padding: 12px 25px; /* Padding inside the button */
+    border: none; /* No border */
+    border-radius: 8px; /* Slightly rounded corners */
+    font-size: 1.1em; /* Font size */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.online-menu-button:hover {
+    background-color: #EE9972; /* Lighter orange/yellow on hover */
+    color: #495E57; /* Darker text color on hover */
+}
+
+.specials-grid {
+    display: grid;
+    /* Responsive 3-column grid:
+       - repeat(auto-fit, ...): Creates as many columns as fit
+       - minmax(280px, 1fr): Each column will be at least 280px, or take equal fraction of space */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; /* Space between the grid items (product cards) */
+    justify-content: center; /* Center the grid items if they don't fill the row completely */
+}
+
+.special-item {
+    background-color: #FFFFFF; /* White background for each product card */
+    border-radius: 16px; /* Rounded corners for the card */
+    overflow: hidden; /* Ensures image corners match card corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: flex; /* Use flexbox to stack image and content within the card */
+    flex-direction: column;
+    text-align: left; /* Align text within the card to the left */
+}
+
+.special-item-image {
+    width: 100%; /* Make image fill the width of the card */
+    height: 200px; /* Fixed height for consistent image size across cards */
+    object-fit: cover; /* Ensures image covers the area, cropping if necessary, without distortion */
+}
+
+.special-item-content {
+    padding: 20px; /* Padding around the text content within the card */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows the content area to take available vertical space, pushing button to bottom */
+}
+
+.special-item-title-price {
+    display: flex; /* Arrange title and price horizontally */
+    justify-content: space-between; /* Puts title on left, price on right */
+    align-items: center; /* Vertically centers them */
+    margin-bottom: 10px; /* Space between title/price and description */
+}
+
+.special-item-content h3 {
+    font-size: 1.4em; /* Font size for product title */
+    color: #333333; /* Dark text color */
+    margin: 0; /* Remove default margin */
+}
+
+.special-item-content .price {
+    font-size: 1.2em; /* Font size for price */
+    color: #EE9972; /* Orange color for price from branding */
+    font-weight: bold; /* Bold price */
+}
+
+.special-item-content p {
+    font-size: 1em; /* Font size for description */
+    color: #495E57; /* Dark green/grey for description */
+    line-height: 1.4; /* Line height for readability */
+    flex-grow: 1; /* Allows description to take available space, pushing button to bottom */
+}
+
+.order-delivery-button {
+    background: none; /* No background */
+    border: none; /* No border */
+    color: #495E57; /* Dark green/grey text color */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: 15px; /* Space above the button */
+    padding: 0; /* Remove default button padding */
+    text-align: left; /* Align text to the left within the button */
+    transition: color 0.3s ease; /* Smooth hover transition */
+}
+
+.order-delivery-button:hover {
+    color: #EE9972; /* Orange color on hover */
+}
+
+/* Responsive adjustments for Specials Section */
+@media (max-width: 992px) {
+    .specials-section {
+        padding: 40px; /* Reduce padding on tablets/laptops */
+    }
+    .specials-header {
+        flex-direction: column; /* Stack heading and button */
+        gap: 20px; /* Space between stacked items */
+        text-align: center; /* Center text when stacked */
+    }
+    .specials-header h2 {
+        font-size: 2em; /* Smaller heading font size */
+    }
+    .specials-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .specials-grid {
+        grid-template-columns: 1fr; /* Single column on smaller tablets/large phones */
+        gap: 25px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .specials-section {
+        padding: 30px 20px; /* Further reduce padding on small phones */
+    }
+    .specials-header h2 {
+        font-size: 1.8em; /* Even smaller heading font size */
+    }
+    .online-menu-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}

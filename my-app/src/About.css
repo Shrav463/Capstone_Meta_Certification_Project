@@ -1,0 +1,240 @@
+/* src/About.css */
+
+/* Import a font that matches the "Fast, tasty & served well" style from the reference image */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
+
+.about-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align to start for content flow */
+  /* Use a dark, textured background inspired by the reference image */
+  background-color: #2c2c2c;
+  background-image: url('/public/chalkboard.jpg'); /* Placeholder image for a dark, textured background */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative; /* Needed for the pseudo-element overlay */
+  /* Add top padding to prevent overlap with the absolutely positioned header */
+  padding: calc(var(--header-height, 80px) + 40px) 20px 40px;
+  flex-grow: 1;
+  min-height: calc(100vh - var(--header-height, 80px) - var(--footer-height, 100px));
+  overflow-y: auto;
+  animation: fadeIn 0.8s ease-out forwards; /* Add page fade-in */
+}
+
+/* Add a subtle dark overlay to enhance content readability on top of the image */
+.about-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Adjust opacity as needed */
+  z-index: 0;
+}
+
+/* Keyframes for fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Keyframes for slide-up-fade */
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.about-page-container {
+  /* Make the container a light, semi-transparent color for contrast */
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 1000px;
+  width: 100%;
+  animation: fadeIn 0.8s ease-out forwards;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative; /* Ensure the container is on top of the overlay */
+  z-index: 1;
+}
+
+.about-page-container h1 {
+  /* Use the script font and a dark text color for the title */
+  font-family: 'Dancing Script', cursive;
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 3.2em;
+  animation: fadeIn 0.8s ease-out 0.2s forwards;
+}
+
+.about-page-container > p {
+  color: #666;
+  margin-bottom: 50px;
+  font-size: 1.2em;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+  animation: fadeIn 0.8s ease-out 0.4s forwards;
+}
+
+.our-story, .our-mission, .meet-the-chefs {
+  margin-bottom: 70px;
+  text-align: left;
+  opacity: 0;
+  animation: slideUpFade 0.8s ease-out forwards;
+}
+
+/* Staggered animations for sections */
+.our-story {
+  animation-delay: 0.6s;
+}
+.our-mission {
+  animation-delay: 0.8s;
+}
+.meet-the-chefs {
+  animation-delay: 1s;
+}
+
+.our-story h2, .our-mission h2, .meet-the-chefs h2 {
+  color: #495E57;
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #EE9972;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.story-content p {
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  font-size: 1.1em;
+}
+
+.story-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.story-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+.story-image:first-child {
+    animation-delay: 1.0s;
+}
+.story-image:last-child {
+    animation-delay: 1.2s;
+}
+
+
+.our-mission p {
+  color: #666;
+  line-height: 1.8;
+  font-size: 1.15em;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.meet-the-chefs {
+  text-align: center;
+}
+
+.chefs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.chef-card {
+  background-color: #F4CE14;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  animation: slideUpFade 0.8s ease-out forwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* Stagger individual chef cards */
+.chef-card:nth-child(1) {
+  animation-delay: 1.2s;
+}
+.chef-card:nth-child(2) {
+  animation-delay: 1.4s;
+}
+
+.chef-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+
+.chef-avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #495E57;
+  margin-bottom: 20px;
+}
+
+.chef-card h3 {
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 8px;
+}
+
+.chef-card p {
+  color: #495E57;
+  line-height: 1.7;
+  font-size: 1.05em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .about-page-container {
+    padding: 30px;
+  }
+
+  .about-page-container h1 {
+    font-size: 2.5em;
+  }
+
+  .our-story h2, .our-mission h2, .meet-the-chefs h2 {
+    font-size: 2em;
+  }
+
+  .story-images {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .story-image {
+    height: 250px;
+  }
+
+  .chefs-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}

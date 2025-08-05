@@ -1,0 +1,111 @@
+/* src/HeroSection.css */
+
+.hero-section {
+    position: relative; /* Container for the image and content */
+    display: flex;
+    justify-content: flex-start; /* Align content to the left */
+    align-items: center; /* Center content vertically */
+    padding: 60px 80px;
+    background-color: #495E57; /* Fallback color */
+    color: #F4CE14; /* Text color for contrast */
+    min-height: 450px; /* Set a minimum height for the hero section */
+}
+
+/* New: Styles for the background image and overlay */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('C:\Users\shrav\Downloads\Capstone_Meta_Certification_Project-main\my-app\public\restaurant_pic.jpg'); /* Your hero image */
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.6); /* Darken the image to make text readable */
+    z-index: 1;
+}
+
+.hero-content {
+    /* Styles for the text content on the left, now overlaid on the image */
+    position: relative;
+    z-index: 2; /* Ensure content is on top of the image */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between elements */
+    max-width: 50%; /* Limit the width of the content for better readability */
+    text-align: left;
+}
+
+.hero-content h1 {
+    font-size: 3em; /* Larger heading */
+    color: #fff; /* White color for better contrast on the dark background */
+    margin: 0;
+}
+
+.hero-content h2 {
+    font-size: 2em; /* Smaller subheading */
+    color: #fff; /* White color */
+    margin: 0;
+}
+
+.hero-content p {
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: #EDEFEE; /* Light grey for paragraph */
+}
+
+/* The image container is no longer needed in this layout */
+.hero-image-container {
+    display: none;
+}
+
+.reserve-button {
+    background-color: #EE9972; /* The pink/red color from your reference image */
+    color: #333333; /* Dark text */
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px; /* Slightly rounded corners */
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    align-self: flex-start; /* Align button to the left */
+}
+
+.reserve-button:hover {
+    background-color: #F4CE14; /* Lighter yellow/orange on hover */
+    color: #495E57; /* Darker text on hover */
+}
+
+/* Responsive adjustments for Hero Section */
+@media (max-width: 992px) {
+    .hero-section {
+        padding: 40px;
+        justify-content: center;
+    }
+    .hero-content {
+        max-width: 80%; /* Adjust max width for smaller screens */
+        text-align: center;
+        align-items: center; /* Center content */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 30px 20px;
+    }
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+    .hero-content h2 {
+        font-size: 1.8em;
+    }
+    .hero-content p {
+        font-size: 1em;
+    }
+    .reserve-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}

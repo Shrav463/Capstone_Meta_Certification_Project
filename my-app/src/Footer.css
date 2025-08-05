@@ -1,0 +1,73 @@
+footer {
+    display: grid;
+    /* Define 4 columns, each taking an equal fraction of space.
+        Adjust '1fr' values or add fixed widths if columns need to be different sizes. */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px; /* Space between columns */
+    padding: 40px 80px; /* Top/bottom padding, left/right padding */
+    background-color: #3f3e3e; /* A light, warm yellow/orange from Little Lemon branding */
+    color: #f2f22f; /* Dark text color for contrast */
+    text-align: left; /* Align text within columns */
+    border-top: 1px solid #EE9972; /* Optional: subtle top border */
+}
+
+.footer-column {
+    /* Basic styling for each column */
+    display: flex; /* Use flexbox within each column to stack items */
+    flex-direction: column;
+    gap: 10px; /* Space between items in a column */
+}
+
+.footer-logo {
+    max-width: 150px; /* Increased logo size */
+    height: auto;
+    margin-bottom: 10px; /* Space below the logo */
+}
+
+.footer-column h3 {
+    color: #eafa70; /* Dark green/grey from branding */
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: 15px; /* Space below headings */
+    font-weight: bold;
+}
+
+.footer-column ul {
+    list-style: none; /* Remove bullet points from lists */
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column li {
+    margin-bottom: 8px; /* Space between list items */
+}
+
+.footer-column a {
+    text-decoration: none; /* Remove underline from links */
+    color: #eafa70; /* Link color */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.footer-column a:hover {
+    color: #495E57; /* Darker color on hover */
+}
+
+/* Basic Responsive Adjustments for smaller screens */
+@media (max-width: 768px) {
+    footer {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on tablets */
+        padding: 30px 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        grid-template-columns: 1fr; /* Stack all columns on very small screens */
+        padding: 20px 20px;
+        text-align: center; /* Center content when stacked */
+    }
+
+    .footer-column {
+        align-items: center; /* Center items in stacked columns */
+    }
+}

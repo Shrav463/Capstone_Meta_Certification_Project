@@ -1,0 +1,97 @@
+/* src/TestimonialsSection.css */
+
+.testimonials-section {
+    padding: 60px 80px; /* Padding around the entire section */
+    background-color: #FBDABB; /* Light pink/salmon background from wireframe */
+    text-align: center; /* Center the main heading */
+    color: #333333; /* Default text color */
+}
+
+.testimonials-section h2 {
+    font-size: 2.5em; /* Large font size for the section title */
+    color: #333333; /* Dark text color */
+    margin-bottom: 40px; /* Space below the heading */
+}
+
+.testimonials-grid {
+    display: grid;
+    /* Responsive 3-column grid for testimonial cards */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; /* Space between cards */
+    justify-content: center; /* Center cards if they don't fill the row */
+}
+
+.testimonial-card {
+    background-color: #FFFFFF; /* White background for each card */
+    border-radius: 16px; /* Rounded corners */
+    padding: 25px; /* Padding inside the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex; /* Use flexbox to stack content within the card */
+    flex-direction: column;
+    align-items: center; /* Center items horizontally within the card */
+    text-align: center; /* Center text within the card */
+}
+
+.testimonial-rating {
+    font-size: 1.5em; /* Size of the star rating */
+    margin-bottom: 15px; /* Space below rating */
+}
+
+.customer-info {
+    display: flex;
+    flex-direction: column; /* Stack avatar and name */
+    align-items: center; /* Center avatar and name */
+    margin-bottom: 15px; /* Space below customer info */
+}
+
+.customer-avatar {
+    width: 80px; /* Size of avatar image */
+    height: 80px;
+    border-radius: 50%; /* Make it round */
+    object-fit: cover; /* Ensure image covers the area */
+    border: 3px solid #F4CE14; /* Yellow border from branding */
+    margin-bottom: 8px; /* Space between avatar and name */
+}
+
+.customer-name {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333333;
+    margin: 0; /* Remove default margin */
+}
+
+.testimonial-text {
+    font-style: italic;
+    color: #495E57; /* Darker grey for testimonial text */
+    line-height: 1.5;
+    margin: 0; /* Remove default margin */
+}
+
+/* Responsive adjustments for Testimonials Section */
+@media (max-width: 992px) {
+    .testimonials-section {
+        padding: 40px;
+    }
+    .testimonials-section h2 {
+        font-size: 2em;
+    }
+    .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr; /* Single column on smaller tablets/large phones */
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonials-section {
+        padding: 30px 20px;
+    }
+    .testimonials-section h2 {
+        font-size: 1.8em;
+    }
+}
