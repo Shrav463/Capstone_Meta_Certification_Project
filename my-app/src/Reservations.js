@@ -10,10 +10,13 @@ function Reservations() {
     occasion: 'Birthday',
     name: '',
     email: '',
-    phone: ''
+    phone: '',
+    seating: '' // New state for seating preference
   });
-  const [errors, setErrors] = useState({}); // New state for validation errors
-  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState({}); // State for validation errors
+  const [submitted, setSubmitted] = useState(false); // State to show success message
+  const [loading, setLoading] = useState(false); // State for loading indicator (for future API)
+  const [apiError, setApiError] = useState(''); // State for API errors (for future API)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,7 +24,7 @@ function Reservations() {
       ...prevData,
       [name]: value
     }));
-    // Clear error for the field being changed
+    // Clear error for the field being changed if it exists
     if (errors[name]) {
       setErrors(prevErrors => ({
         ...prevErrors,
@@ -34,7 +37,7 @@ function Reservations() {
     let newErrors = {};
     let isValid = true;
 
-    // Date validation
+    // Date validation - REQUIRED
     if (!formData.date) {
       newErrors.date = 'Date is required.';
       isValid = false;
@@ -48,13 +51,14 @@ function Reservations() {
       }
     }
 
-    // Guests validation
-    if (formData.guests < 1 || formData.guests > 10) {
+    // Guests validation - REQUIRED
+    const numGuests = parseInt(formData.guests);
+    if (isNaN(numGuests) || numGuests < 1 || numGuests > 10) {
       newErrors.guests = 'Number of guests must be between 1 and 10.';
       isValid = false;
     }
 
-    // Name validation
+    // Name validation - REQUIRED
     if (!formData.name.trim()) {
       newErrors.name = 'Full Name is required.';
       isValid = false;
@@ -63,7 +67,7 @@ function Reservations() {
       isValid = false;
     }
 
-    // Email validation
+    // Email validation - REQUIRED
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required.';
       isValid = false;
@@ -72,33 +76,62 @@ function Reservations() {
       isValid = false;
     }
 
+    // Seating preference validation - REQUIRED
+    if (!formData.seating) {
+      newErrors.seating = 'Seating preference is required.';
+      isValid = false;
+    }
+
+    // Phone validation (Optional, but validated if entered)
+    if (formData.phone && !/^\+?[0-9]{7,15}$/.test(formData.phone)) {
+      newErrors.phone = 'Phone number is invalid. Use digits only (e.g., +15551234567).';
+      isValid = false;
+    }
+
     setErrors(newErrors);
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setApiError(''); // Clear any previous API errors
+    setSubmitted(false); // Hide success message if resubmitting
+
     if (validateForm()) {
-      // If validation passes, proceed with submission
-      console.log('Reservation Form Data:', formData);
-      // Simulate API call delay
-      setTimeout(() => {
+      setLoading(true); // Indicate loading state
+      console.log('Reservation Form Data (validated):', formData);
+
+      // --- Simulation of API call (replace with actual fetch later) ---
+      try {
+        // Simulate a network request delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Simulate a successful response
+        const mockResponse = { message: 'Reservation successful!', reservation: formData };
+        console.log('Mock API Response:', mockResponse);
+
         setSubmitted(true); // Show success message
-        // Optionally reset form after a short delay or user action
-        setFormData({
+        setFormData({ // Reset form after successful submission
           date: '',
           time: '17:00',
           guests: 1,
           occasion: 'Birthday',
           name: '',
           email: '',
-          phone: ''
+          phone: '',
+          seating: '' // Reset seating as well
         });
         setErrors({}); // Clear any previous errors
         setTimeout(() => setSubmitted(false), 5000); // Message disappears after 5 seconds
-      }, 500); // Simulate network delay
+
+      } catch (error) {
+        console.error('Simulated network error during reservation:', error);
+        setApiError('A simulated error occurred. Please try again later.');
+      } finally {
+        setLoading(false); // Stop loading regardless of success or failure
+      }
     } else {
-      console.log('Form has validation errors.');
+      console.log('Form has validation errors on the client side. Please correct them.');
     }
   };
 
@@ -115,32 +148,39 @@ function Reservations() {
           </div>
         )}
 
+        {apiError && (
+          <div className="error-message">
+            <p><strong>Error:</strong> {apiError}</p>
+          </div>
+        )}
+
         {!submitted && (
-          <form className="reservation-form" onSubmit={handleSubmit} noValidate> {/* Add noValidate to disable browser's default validation */}
+          <form className="reservation-form" onSubmit={handleSubmit} noValidate>
             <div className="form-group">
-              <label htmlFor="res-date">Choose date</label>
+              <label htmlFor="res-date">Choose date <span className="required-star">*</span></label>
               <input
                 type="date"
                 id="res-date"
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                required
-                className={errors.date ? 'input-error' : ''} // Add error class
+                required // HTML5 required attribute
+                className={errors.date ? 'input-error' : ''}
               />
-              {errors.date && <p className="error-message">{errors.date}</p>} {/* Display error */}
+              {errors.date && <p className="error-message">{errors.date}</p>}
             </div>
 
             <div className="form-group">
-              <label htmlFor="res-time">Choose time</label>
+              <label htmlFor="res-time">Choose time <span className="required-star">*</span></label>
               <select
                 id="res-time"
                 name="time"
                 value={formData.time}
                 onChange={handleChange}
-                required
-                className={errors.time ? 'input-error' : ''} // Add error class
+                required // HTML5 required attribute
+                className={errors.time ? 'input-error' : ''}
               >
+                <option value="">Select a time</option> {/* Added a default empty option for better UX */}
                 <option>17:00</option>
                 <option>18:00</option>
                 <option>19:00</option>
@@ -152,7 +192,7 @@ function Reservations() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="guests">Number of guests</label>
+              <label htmlFor="guests">Number of guests <span className="required-star">*</span></label>
               <input
                 type="number"
                 placeholder="1"
@@ -162,22 +202,23 @@ function Reservations() {
                 name="guests"
                 value={formData.guests}
                 onChange={handleChange}
-                required
+                required // HTML5 required attribute
                 className={errors.guests ? 'input-error' : ''}
               />
               {errors.guests && <p className="error-message">{errors.guests}</p>}
             </div>
 
             <div className="form-group">
-              <label htmlFor="occasion">Occasion</label>
+              <label htmlFor="occasion">Occasion <span className="required-star">*</span></label>
               <select
                 id="occasion"
                 name="occasion"
                 value={formData.occasion}
                 onChange={handleChange}
-                required
+                required // HTML5 required attribute
                 className={errors.occasion ? 'input-error' : ''}
               >
+                <option value="">Select an occasion</option> {/* Added a default empty option for better UX */}
                 <option>Birthday</option>
                 <option>Anniversary</option>
                 <option>Engagement</option>
@@ -186,8 +227,38 @@ function Reservations() {
               {errors.occasion && <p className="error-message">{errors.occasion}</p>}
             </div>
 
+            {/* NEW: Seating Preference Radio Buttons */}
+            <div className="form-group radio-group"> {/* Added radio-group class for styling */}
+                <label>Seating Preference <span className="required-star">*</span></label>
+                <div className="radio-options">
+                    <input
+                        type="radio"
+                        id="indoor-seating"
+                        name="seating"
+                        value="Indoor"
+                        checked={formData.seating === 'Indoor'}
+                        onChange={handleChange}
+                        required
+                    />
+                    <label htmlFor="indoor-seating">Indoor</label>
+
+                    <input
+                        type="radio"
+                        id="outdoor-seating"
+                        name="seating"
+                        value="Outdoor"
+                        checked={formData.seating === 'Outdoor'}
+                        onChange={handleChange}
+                        required
+                    />
+                    <label htmlFor="outdoor-seating">Outdoor</label>
+                </div>
+                {errors.seating && <p className="error-message">{errors.seating}</p>}
+            </div>
+
+
             <div className="form-group">
-              <label htmlFor="name">Full Name</label>
+              <label htmlFor="name">Full Name <span className="required-star">*</span></label>
               <input
                 type="text"
                 id="name"
@@ -195,14 +266,14 @@ function Reservations() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Your Full Name"
-                required
+                required // HTML5 required attribute
                 className={errors.name ? 'input-error' : ''}
               />
               {errors.name && <p className="error-message">{errors.name}</p>}
             </div>
 
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email <span className="required-star">*</span></label>
               <input
                 type="email"
                 id="email"
@@ -210,7 +281,7 @@ function Reservations() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="your.email@example.com"
-                required
+                required // HTML5 required attribute
                 className={errors.email ? 'input-error' : ''}
               />
               {errors.email && <p className="error-message">{errors.email}</p>}
@@ -230,7 +301,13 @@ function Reservations() {
               {errors.phone && <p className="error-message">{errors.phone}</p>}
             </div>
 
-            <button type="submit" className="submit-button">Make Your Reservation</button>
+            <button
+              type="submit"
+              className="submit-button"
+              disabled={loading}
+            >
+              {loading ? 'Submitting...' : 'Make Your Reservation'}
+            </button>
           </form>
         )}
       </div>

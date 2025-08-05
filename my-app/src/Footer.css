@@ -8,7 +8,7 @@ footer {
     background-color: #3f3e3e; /* A light, warm yellow/orange from Little Lemon branding */
     color: #f2f22f; /* Dark text color for contrast */
     text-align: left; /* Align text within columns */
-    border-top: 1px solid #EE9972; /* Optional: subtle top border */
+    border-top: 1px solid #080808; /* Optional: subtle top border */
 }
 
 .footer-column {

@@ -61,7 +61,7 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/public/restaurant_pic.jpg'); /* Corrected image path */
+    background-image: url('/public/food_background.jpeg'); /* Corrected image path */
     background-size: cover;
     background-position: center;
     filter: brightness(0.6); /* Darken the image to make text readable */
